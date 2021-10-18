@@ -2,7 +2,7 @@
     <h2 class="page-title">{{ $post->title }}</h2>
     <div class="show-container">
         <div class="image-size">
-            <img src="{{ Storage::url($post->file_path) }}" alt="{{ $post->title }}">
+            <img src="{{ $post->file_path }}" alt="{{ $post->title }}">
             @auth
                 <div id="app">
                     <like :post_id="{{$post->id}}"></like>
@@ -34,7 +34,7 @@
     </div>
 
     <div class="show-modal">
-        <img src="{{ Storage::url($post->file_path) }}" alt="{{ $post->title }}" class="modal-image">
+        <img src="{{ $post->file_path }}" alt="{{ $post->title }}" class="modal-image">
         <p class="close-btn"><a href="">×</a></p>
         <div class="modal-mask"></div>
     </div>
