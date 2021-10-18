@@ -5,7 +5,7 @@
             @foreach ($posts as $post)
                     @if ($loop->index % 3 === 0)
                         <div class="hover-container hover-image">
-                            <a href="{{ route('post.show', ['id' => $post->id]) }}"><div><img data-src="{{ Storage::url($post->file_path) }}" src="{{ asset('images/dummy_800x450.png') }}" alt="{{ $post->title }}" class="lazyload"></div>
+                            <a href="{{ route('post.show', ['id' => $post->id]) }}"><div><img data-src="{{ $post->file_path }}" src="{{ asset('images/dummy_800x450.png') }}" alt="{{ $post->title }}" class="lazyload"></div>
                                 <div class="hover-title">
                                     <p>{{ $post->title }}</p>
                                 </div>
@@ -18,7 +18,7 @@
             @foreach ($posts as $post)
                 @if ($loop->index % 3 === 1)
                 <div class="hover-container hover-image">
-                    <a href="{{ route('post.show', ['id' => $post->id]) }}"><div><img data-src="{{ Storage::url($post->file_path) }}" src="{{ asset('images/dummy_800x450.png') }}" alt="{{ $post->title }}" class="lazyload"></div>
+                    <a href="{{ route('post.show', ['id' => $post->id]) }}"><div><img data-src="{{ $post->file_path }}" src="{{ asset('images/dummy_800x450.png') }}" alt="{{ $post->title }}" class="lazyload"></div>
                         <div class="hover-title">
                             <p>{{ $post->title }}</p>
                         </div>
@@ -31,7 +31,7 @@
             @foreach ($posts as $post)
                 @if ($loop->index % 3 === 2)
                 <div class="hover-container hover-image">
-                    <a href="{{ route('post.show', ['id' => $post->id]) }}"><div><img data-src="{{ Storage::url($post->file_path) }}" src="{{ asset('images/dummy_800x450.png') }}" alt="{{ $post->title }}" class="lazyload"></div>
+                    <a href="{{ route('post.show', ['id' => $post->id]) }}"><div><img data-src="{{ $post->file_path }}" src="{{ asset('images/dummy_800x450.png') }}" alt="{{ $post->title }}" class="lazyload"></div>
                         <div class="hover-title">
                             <p>{{ $post->title }}</p>
                         </div>
