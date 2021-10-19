@@ -27,9 +27,13 @@
     display: inline-block;
     color: #fff;
     background: #000;
-    padding: 0.625rem 3rem;
+    padding: 0.7rem 2rem;
     text-align: center;
     border-radius: 5px;
+}
+
+.toppage-btn + .toppage-btn {
+    margin-left: 2rem;
 }
 
 .hover-image:hover img {
@@ -1046,6 +1050,11 @@ input[type="file"] {
 @media (max-width: 667px) {
     .page-title {
         font-size: 22px;
+    }
+
+    .toppage-btn + .toppage-btn {
+        margin-left: 0;
+        margin-top: 2rem;
     }
 
     .index-btn {
