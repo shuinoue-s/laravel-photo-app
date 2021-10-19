@@ -1,8 +1,8 @@
 <x-layout>
-    <div class="btn-container text-center my-12">
+    <div class="btn-container">
         @guest
-        <a href="{{ route('register') }}" class="index-btn">会員登録</a>
-        <a href="{{ route('login') }}" class="index-btn">ログイン</a>
+        <a href="{{ route('register') }}" class="toppage-btn">会員登録</a>
+        <a href="{{ route('login') }}" class="toppage-btn">ログイン</a>
         @endguest
     </div>
 
