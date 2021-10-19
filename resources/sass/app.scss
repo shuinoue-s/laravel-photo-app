@@ -1052,10 +1052,10 @@ input[type="file"] {
         font-size: 22px;
     }
 
-    .toppage-btn + .toppage-btn {
-        margin-left: 0;
-        margin-top: 2rem;
-    }
+    // .toppage-btn + .toppage-btn {
+    //     margin-left: 0;
+    //     margin-top: 2rem;
+    // }
 
     .index-btn {
         width: 31%;
@@ -1070,12 +1070,12 @@ input[type="file"] {
         display: none;
     }
 
-    .btn-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
+    // .btn-container {
+    //     display: flex;
+    //     flex-direction: column;
+    //     justify-content: center;
+    //     align-items: center;
+    // }
 
     .post-container {
         flex-direction: column;
