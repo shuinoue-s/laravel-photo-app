@@ -1,7 +1,7 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/js/main.js": "/js/main.js",
-    "/js/jquery.js": "/js/jquery.js",
-    "/js/lazyload.min.js": "/js/lazyload.min.js",
-    "/css/app.css": "/css/app.css"
+    "/js/app.js": "/js/app.js?id=5252dcb514b476dee033",
+    "/js/main.js": "/js/main.js?id=2d9f65b3c8c3a40e8976",
+    "/js/jquery.js": "/js/jquery.js?id=e05ee82187708e8380bf",
+    "/js/lazyload.min.js": "/js/lazyload.min.js?id=96c71c8e2ece02535f47",
+    "/css/app.css": "/css/app.css?id=0e8308a02883fe9915a4"
 }
