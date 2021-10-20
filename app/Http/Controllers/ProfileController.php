@@ -16,10 +16,23 @@ class ProfileController extends Controller
         $this->middleware('auth');
     }
 
+    public function GetPresignedURL(string $s3_key)
+    {
+        $s3 = Storage::disk('s3');
+        $client = $s3->getDriver()->getAdapter()->getClient();
+        $command = $client->getCommand('GetObject', [
+            'Bucket' => env('AWS_BUCKET'),
+            'Key' => $s3_key
+        ]);
+        $request = $client->createPresignedRequest($command, "+10 minutes");
+        return (string) $request->getUri();
+    }
+
     public function profile()
     {
         $auth = Auth::user();
         $user_profile = Profile::where('user_id', $auth->id)->first();
+        $user_profile['profile_image'] = $this->GetPresignedURL($user_profile['profile_image']);
 
         return view('mypage.profile', compact('auth', 'user_profile'));
     }
@@ -28,6 +41,7 @@ class ProfileController extends Controller
     {
         $auth = Auth::user();
         $user_profile = Profile::where('user_id', $auth->id)->first();
+        $user_profile['profile_image'] = $this->GetPresignedURL($user_profile['profile_image']);
 
         return view('mypage.edit', compact('auth', 'user_profile'));
     }
