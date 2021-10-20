@@ -40,7 +40,7 @@ class ShowController extends Controller
         $post['file_path'] = $this->GetPresignedURL($post['file_path']);
         $date = $post->created_at->format('Y/m/d');
         $auth = Auth::id();
-        $post_user = $post->user()->where('id', $post->user_id)->get();
+        $post_user = $post->user;
         $comments = Comment::where('post_id', $id)->latest()->get();
         $tags = $post->tags->toArray();
         return view('post.show', compact('post', 'date', 'auth', 'comments', 'tags', 'post_user'));
