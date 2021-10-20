@@ -1,5 +1,5 @@
 <x-layout>
-    <h2 class="page-title">投稿者 | {{ $auth->name }}</h2>
+    <h2 class="page-title">投稿者 | {{ $post_user }}</h2>
     <div class="show-container">
         <div class="image-size">
             <img src="{{ $post->file_path }}" alt="{{ $post->title }}">
@@ -12,8 +12,8 @@
 
         <div class="show-description">
             <p>{{ $date }}</p>
-            <p>タイトル: {{$post->title}}</p>
-            <p>本文: {!! nl2br(e($post->description)) !!}</p>
+            <p>{{$post->title}}</p>
+            <p>{!! nl2br(e($post->description)) !!}</p>
 
             <div class="show-tag">
                 @for ($i = 0; $i < count($tags); $i++)
@@ -21,7 +21,7 @@
                 @endfor
             </div>
 
-            @if ($post->user_id === $auth->id)
+            @if ($post->user_id === $auth)
                 <div class="delete-btn-container">
                     <form action="{{ route('post.destroy', $post->id) }}" method="post">
                         @method('DELETE')
@@ -69,7 +69,7 @@
                                 <li>
                                     <p>{{ $comment->created_at }}</p>
                                     <p>{!! nl2br(e($comment->comment)) !!}</p>
-                                    @if ($comment->user_id === $auth->id)
+                                    @if ($comment->user_id === $auth)
                                         <button id="comment-delete-btn"><span class="x-btn">×</span><span class="comment-delete-btn">削除</span></button>
                                     @endif
                                 </li>
