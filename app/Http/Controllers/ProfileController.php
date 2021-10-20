@@ -50,24 +50,26 @@ class ProfileController extends Controller
     {
         $user_id = Auth::id();
         $user_profile = Profile::where('user_id', $user_id)->first();
-        $upload_icon = $request->file('image')->getClientOriginalName();
-        $file_path = Storage::disk('s3')->putFile('/uploads', $request->file('image'));
 
         if(is_null($user_profile)) {
             if ($upload_icon && $request->body) {
-                    Profile::create([
-                        'user_id' => $user_id,
-                        'profile_image' => $file_path,
-                        'profile_body' => $request->body
-                    ]);
+                $upload_icon = $request->file('image')->getClientOriginalName();
+                $file_path = Storage::disk('s3')->putFile('/uploads', $request->file('image'));
+                Profile::create([
+                    'user_id' => $user_id,
+                    'profile_image' => $file_path,
+                    'profile_body' => $request->body
+                ]);
             }
 
             if ($upload_icon && !$request->body) {
-                    Profile::create([
-                        'user_id' => $user_id,
-                        'profile_image' => $file_path,
-                        'profile_body' => ''
-                    ]);
+                $upload_icon = $request->file('image')->getClientOriginalName();
+                $file_path = Storage::disk('s3')->putFile('/uploads', $request->file('image'));
+                Profile::create([
+                    'user_id' => $user_id,
+                    'profile_image' => $file_path,
+                    'profile_body' => ''
+                ]);
             }
 
             if (!$upload_icon && $request->body) {
@@ -87,15 +89,19 @@ class ProfileController extends Controller
             }
         } else {
             if ($upload_icon && $request->body) {
-                    $user_profile->profile_image = $file_path;
-                    $user_profile->profile_body = $request->body;
-                    $user_profile->save();
+                $upload_icon = $request->file('image')->getClientOriginalName();
+                $file_path = Storage::disk('s3')->putFile('/uploads', $request->file('image'));
+                $user_profile->profile_image = $file_path;
+                $user_profile->profile_body = $request->body;
+                $user_profile->save();
             }
 
             if ($upload_icon && !$request->body) {
-                    $user_profile->profile_image = $file_path;
-                    $user_profile->profile_body = '';
-                    $user_profile->save();
+                $upload_icon = $request->file('image')->getClientOriginalName();
+                $file_path = Storage::disk('s3')->putFile('/uploads', $request->file('image'));
+                $user_profile->profile_image = $file_path;
+                $user_profile->profile_body = '';
+                $user_profile->save();
             }
 
             if (!$upload_icon && $request->body) {
