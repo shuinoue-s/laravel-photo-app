@@ -41,7 +41,7 @@ class ShowController extends Controller
         $date = $post->created_at->format('Y/m/d');
         $auth = Auth::id();
         $post_user = $post->user()->where('id', $post->user_id)->get();
-        $post_user = $post_user['name'];
+        $post_user = $post_user->name;
         $comments = Comment::where('post_id', $id)->latest()->get();
         $tags = $post->tags->toArray();
         return view('post.show', compact('post', 'date', 'auth', 'comments', 'tags', 'post_user'));
