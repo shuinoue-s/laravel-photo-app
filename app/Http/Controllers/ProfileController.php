@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Profile;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -34,32 +35,25 @@ class ProfileController extends Controller
     public function create(ProfileRequest $request)
     {
         $user_id = Auth::id();
-        $upload_icon = $request->file('image');
         $user_profile = Profile::where('user_id', $user_id)->first();
+        $upload_icon = $request->file('image')->getClientOriginalName();
+        $file_path = Storage::disk('s3')->putFile('/uploads', $request->file('image'));
 
         if(is_null($user_profile)) {
             if ($upload_icon && $request->body) {
-                $path = $upload_icon->store('uploads_icon', 'public');
-
-                if ($path) {
                     Profile::create([
                         'user_id' => $user_id,
-                        'profile_image' => $path,
+                        'profile_image' => $file_path,
                         'profile_body' => $request->body
                     ]);
-                }
             }
 
             if ($upload_icon && !$request->body) {
-                $path = $upload_icon->store('uploads_icon', 'public');
-
-                if ($path) {
                     Profile::create([
                         'user_id' => $user_id,
-                        'profile_image' => $path,
+                        'profile_image' => $file_path,
                         'profile_body' => ''
                     ]);
-                }
             }
 
             if (!$upload_icon && $request->body) {
@@ -79,21 +73,15 @@ class ProfileController extends Controller
             }
         } else {
             if ($upload_icon && $request->body) {
-                $path = $upload_icon->store('uploads_icon', 'public');
-                if ($path) {
-                    $user_profile->profile_image = $path;
+                    $user_profile->profile_image = $file_path;
                     $user_profile->profile_body = $request->body;
                     $user_profile->save();
-                }
             }
 
             if ($upload_icon && !$request->body) {
-                $path = $upload_icon->store('uploads_icon', 'public');
-                if ($path) {
-                    $user_profile->profile_image = $path;
+                    $user_profile->profile_image = $file_path;
                     $user_profile->profile_body = '';
                     $user_profile->save();
-                }
             }
 
             if (!$upload_icon && $request->body) {

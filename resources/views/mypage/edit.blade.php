@@ -5,7 +5,7 @@
         <div class="profile-container">
             <div class="profile-image-container">
                 @if (!empty($user_profile->profile_image))
-                    <img id="preview" class="profile-image profile-image-label" src="{{ Storage::url($user_profile->profile_image) }}" alt="icon">
+                    <img id="preview" class="profile-image profile-image-label" src="{{ $user_profile->profile_image }}" alt="icon">
                 @else
                     <img id="preview" class="profile-image profile-image-label" src="{{ asset('images/profile-icon.png') }}">
                 @endif

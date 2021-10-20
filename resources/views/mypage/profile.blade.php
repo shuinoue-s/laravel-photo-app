@@ -4,7 +4,7 @@
         <div class="mypage-container">
             <div class="mypage-image-container">
                 @if (!empty($user_profile->profile_image))
-                    <a href="{{ route('mypage.edit') }}"><img id="preview" class="mypage-image" src="{{ Storage::url($user_profile->profile_image) }}" alt="icon"></a>
+                    <a href="{{ route('mypage.edit') }}"><img id="preview" class="mypage-image" src="{{ $user_profile->profile_image }}" alt="icon"></a>
                 @else
                     <a href="{{ route('mypage.edit') }}"><img id="preview" class="mypage-image" src="{{ asset('images/profile-icon.png') }}"></a>
                 @endif
