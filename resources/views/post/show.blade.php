@@ -1,5 +1,5 @@
 <x-layout>
-    <h2 class="page-title">投稿者 | {{ $post_user->name }}</h2>
+    <h2 class="page-title">投稿者 | {{ $post_user }}</h2>
     <div class="show-container">
         <div class="image-size">
             <img src="{{ $post->file_path }}" alt="{{ $post->title }}">
