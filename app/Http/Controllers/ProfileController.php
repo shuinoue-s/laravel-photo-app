@@ -52,7 +52,7 @@ class ProfileController extends Controller
         $user_profile = Profile::where('user_id', $user_id)->first();
         $upload_icon = $request->file('image');
 
-        if(is_null($user_profile)) {
+        if (is_null($user_profile)) {
             if ($upload_icon && $request->body) {
                 $file_path = Storage::disk('s3')->putFile('/uploads', $request->file('image'));
                 Profile::create([
