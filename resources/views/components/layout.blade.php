@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>totte</title>
+    <title>Phototte</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -24,7 +24,7 @@
 <body class="antialiased">
     <!-- header -->
     <header class="fixed opacity-90 w-full bg-black text-white p-8 h-20 flex items-center header-shadow z-20">
-        <h1 class="text-5xl ml-12"><a href="/" class="text-white">totte</a></h1>
+        <h1 class="text-4xl ml-12"><a href="/" class="text-white">Phototte</a></h1>
 
         <div class="pr-8 w-full flex justify-end items-center">
             <div id="hamburger-menu" class="relative w-8 inline-block box-border text-white align-middle cursor-pointer">
