@@ -1,5 +1,5 @@
 <x-layout>
-    <h2 class="page-title">投稿者 | {{ $post_user->name }}</h2>
+    <h2 class="page-title">{{ $post_user->name }} の投稿</h2>
     <div class="show-container">
         <div class="image-size">
             <img src="{{ $post->file_path }}" alt="{{ $post->title }}">
@@ -67,6 +67,7 @@
                             @method('DELETE')
                             @csrf
                                 <li>
+                                    <p>{{ $comment->user->name }} より</p>
                                     <p>{{ $comment->created_at }}</p>
                                     <p>{!! nl2br(e($comment->comment)) !!}</p>
                                     @if ($comment->user_id === $auth)

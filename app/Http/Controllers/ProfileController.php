@@ -32,8 +32,10 @@ class ProfileController extends Controller
     {
         $auth = Auth::user();
         $user_profile = Profile::where('user_id', $auth->id)->first();
-        if ($user_profile->profile_image) {
-            $user_profile['profile_image'] = $this->GetPresignedURL($user_profile['profile_image']);
+        if ($user_profile) {
+            if ($user_profile->profile_image) {
+                $user_profile['profile_image'] = $this->GetPresignedURL($user_profile['profile_image']);
+            }
         }
 
         return view('mypage.profile', compact('auth', 'user_profile'));
@@ -43,8 +45,10 @@ class ProfileController extends Controller
     {
         $auth = Auth::user();
         $user_profile = Profile::where('user_id', $auth->id)->first();
-        if ($user_profile->profile_image) {
-            $user_profile['profile_image'] = $this->GetPresignedURL($user_profile['profile_image']);
+        if ($user_profile) {
+            if ($user_profile->profile_image) {
+                $user_profile['profile_image'] = $this->GetPresignedURL($user_profile['profile_image']);
+            }
         }
 
         return view('mypage.edit', compact('auth', 'user_profile'));
