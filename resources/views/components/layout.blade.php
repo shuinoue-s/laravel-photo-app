@@ -24,7 +24,7 @@
 <body class="antialiased">
     <!-- header -->
     <header class="fixed opacity-90 w-full bg-black text-white p-8 h-20 flex items-center header-shadow z-20">
-        <h1 class="text-4xl ml-12"><a href="/" class="text-white">Phototte</a></h1>
+        <h1 class="text-2xl ml-12"><a href="/" class="text-white">Phototte</a></h1>
 
         <div class="pr-8 w-full flex justify-end items-center">
             <div id="hamburger-menu" class="relative w-8 inline-block box-border text-white align-middle cursor-pointer">
