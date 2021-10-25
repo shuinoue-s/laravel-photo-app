@@ -56,15 +56,15 @@ class ProfileController extends Controller
 
     public function create(ProfileRequest $request)
     {
-        $user_id = Auth::id();
-        $user_profile = Profile::where('user_id', $user_id)->first();
+        $auth = Auth::user();
+        $user_profile = Profile::where('user_id', $auth->id)->first();
         $upload_icon = $request->file('image');
 
         if (is_null($user_profile)) {
             if ($upload_icon && $request->body) {
                 $file_path = Storage::disk('s3')->putFile('/uploads', $upload_icon);
                 Profile::create([
-                    'user_id' => $user_id,
+                    'user_id' => $auth->id,
                     'profile_image' => $file_path,
                     'profile_body' => $request->body
                 ]);
@@ -73,7 +73,7 @@ class ProfileController extends Controller
             if ($upload_icon && !$request->body) {
                 $file_path = Storage::disk('s3')->putFile('/uploads', $upload_icon);
                 Profile::create([
-                    'user_id' => $user_id,
+                    'user_id' => $auth->id,
                     'profile_image' => $file_path,
                     'profile_body' => ''
                 ]);
@@ -81,16 +81,11 @@ class ProfileController extends Controller
 
             if (!$upload_icon && $request->body) {
                 Profile::create([
-                    'user_id' => $user_id,
+                    'user_id' => $auth->id,
                     'profile_image' => '',
                     'profile_body' => $request->body
                 ]);
             }
-
-            if (!$upload_icon && !$request->body) {
-                return redirect()->route('mypage.edit');
-            }
-
         } else {
             if ($upload_icon && $request->body) {
                 $file_path = Storage::disk('s3')->putFile('/uploads', $upload_icon);
@@ -110,15 +105,13 @@ class ProfileController extends Controller
                 $user_profile->profile_body = $request->body;
                 $user_profile->save();
             }
-
-            if (!$upload_icon && !$request->body) {
-                return redirect()->route('mypage.edit');
-            }
         }
 
         if(Auth::check()) {
-            Auth::user()->name = $request->name;
-            Auth::user()->save();
+            if ($auth->name !== $request->name) {
+                $auth->name = $request->name;
+                $auth->save();
+            }
         }
 
        return redirect()->route('mypage.profile');
