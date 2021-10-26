@@ -65,8 +65,8 @@
         {{ $slot }}
 
         <!-- footer -->
-        <footer class="mt-12 h-12 bg-black text-center">
-            <h1 class="text-white">totte.</h1>
+        <footer class="mt-12 h-12">
+
         </footer>
     </div>
 

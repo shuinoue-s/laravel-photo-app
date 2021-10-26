@@ -4,6 +4,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ShowController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfileInfoController;
 use App\Http\Controllers\PasswordChangeController;
 use App\Http\Controllers\EmailChangeController;
 use App\Http\Controllers\LikeController;
@@ -42,7 +43,7 @@ Route::get('/post/show/{post?}/firstcheck', [LikeController::class, 'firstcheck'
 
 Route::get('/post/show/{post?}/check', [LikeController::class, 'check'])->name('like.check');
 
-Route::get('/tag/list/{id}', [TagController::class, 'list'])->name('tag.list');
+Route::get('/tag/list/{id}', [TagController::class, 'list'])->where('id', '[0-9]+')->name('tag.list');
 
 Route::get('/tag/search', [TagController::class, 'search'])->name('tag.search');
 
@@ -55,6 +56,8 @@ Route::get('/mypage/edit', [ProfileController::class, 'edit'])->name('mypage.edi
 Route::post('/mypage/create', [ProfileController::class, 'create'])->name('mypage.create');
 
 Route::delete('mypage/destroy/{id}', [ProfileController::class, 'destroy'])->where('id', '[0-9]+')->name('mypage.destroy');
+
+Route::get('/mypage/profile_info/{name}', [ProfileInfoController::class, 'profileInfo'])->name('mypage.profile_info');
 
 Route::get('/mypage/passwordchange_show', [PasswordChangeController::class, 'passwordChangeShow'])->name('mypage.passwordchange_show');
 
