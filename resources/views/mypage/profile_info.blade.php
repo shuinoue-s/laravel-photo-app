@@ -1,7 +1,7 @@
 <x-layout>
     <h2 class="page-title">{{ $post_user->name }}さん</h2>
 
-    <div class="mypage-container">
+    <div class="mypage-container profile-info-mypage-container">
         <div class="mypage-image-container">
             @if (!empty($post_user->profile->profile_image))
                 <img id="preview" class="mypage-image" src="{{ $post_user->profile->profile_image }}" alt="icon">
@@ -27,7 +27,9 @@
         </div>
     </div>
 
-    <div class="flex-container">
+    <div class="profile-info-line"></div>
+
+    <div class="flex-container profile-info-flex-container">
         <div class="flex-column flex-column1">
             @foreach ($post_user->posts as $post)
                     @if ($loop->index % 3 === 0)

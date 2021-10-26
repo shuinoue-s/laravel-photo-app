@@ -171,8 +171,6 @@ header a:hover {
     display: flex;
     width: 90%;
     margin: 0 auto;
-    margin-bottom: 3rem;
-    border-bottom: 1px solid rgb(200, 200, 200);
     gap: 1rem;
 
     a:hover {
@@ -235,6 +233,15 @@ header a:hover {
             }
         }
     }
+}
+.profile-info-line {
+    margin: 3rem auto;
+    border-bottom: 1px solid rgb(200, 200, 200);
+    width: 90%;
+}
+
+.flex-container.profile-info-flex-container {
+    width: 90%;
 }
 
 .mypage-btn-container {
