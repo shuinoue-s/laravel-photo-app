@@ -1,5 +1,5 @@
 <x-layout>
-    <h2 class="page-title"><a href="{{ route('mypage.profile_info', $post_user->name) }}" class="profile-info-link">{{ $post_user->name }}さんの投稿</a></h2>
+    <h2 class="page-title"><a href="{{ route('mypage.profile_info', $post->user->name) }}" class="profile-info-link">{{ $post->user->name }}さんの投稿</a></h2>
     <div class="show-container">
         <div class="image-size">
             <img src="{{ $post->file_path }}" alt="{{ $post->title }}">
@@ -16,12 +16,12 @@
             <p>{!! nl2br(e($post->description)) !!}</p>
 
             <div class="show-tag">
-                @for ($i = 0; $i < count($tags); $i++)
-                        <a href="{{ route('tag.list', $tags[$i]['id']) }}">#{{$tags[$i]['tag_name'];}}</a>
-                @endfor
+                @foreach ($post->tags as $tag)
+                    <a href="{{ route('tag.list', $tag->id) }}">#{{ $tag->tag_name }}</a>
+                @endforeach
             </div>
 
-            @if ($post->user_id === $auth)
+            @if ($post->user->id === $auth)
                 <div class="delete-btn-container">
                     <form action="{{ route('post.destroy', $post->id) }}" method="post">
                         @method('DELETE')
@@ -62,7 +62,7 @@
         <div class="show-comment-container">
             <h3>コメント一覧</h3>
                 <ul>
-                    @foreach ($comments as $comment)
+                    @foreach ($post->comments as $comment)
                         <form action="{{ route('comment.destroy', $comment->id) }}" method="post">
                             @method('DELETE')
                             @csrf

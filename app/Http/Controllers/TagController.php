@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Tag;
 use App\Http\Requests\TagRequest;
 use Illuminate\Support\Facades\Storage;
@@ -20,9 +19,9 @@ class TagController extends Controller
         $request = $client->createPresignedRequest($command, "+10 minutes");
         return (string) $request->getUri();
     }
-    
+
     public function list($id) {
-        $tag = Tag::findOrFail($id);
+        $tag = Tag::with('posts')->findOrFail($id);
         $posts = $tag->posts;
         foreach ($posts as $post) {
             $post['file_path'] = $this->GetPresignedURL($post['file_path']);
@@ -40,7 +39,7 @@ class TagController extends Controller
     {
         $tag_name = $request->tag;
         $trim = preg_replace('/(　| )/', '', $tag_name);
-        $tags = Tag::where('tag_name', $trim)->latest()->get();
+        $tags = Tag::with('posts')->where('tag_name', $trim)->latest()->get();
 
         if ($tags->isNotEmpty()) {
             foreach ($tags as $tag) {

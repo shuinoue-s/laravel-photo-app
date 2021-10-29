@@ -23,7 +23,7 @@ class ShowController extends Controller
 
     public function index()
     {
-        $posts = Post::all()->sortByDesc('created_at');
+        $posts = Post::with('comments', 'tags')->latest()->get();
         foreach ($posts as $post) {
             $post['file_path'] = $this->GetPresignedURL($post['file_path']);
         }
@@ -33,14 +33,12 @@ class ShowController extends Controller
 
     public function show($id)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::with('user', 'comments', 'tags')->findOrFail($id);
         $post['file_path'] = $this->GetPresignedURL($post['file_path']);
         $date = $post->created_at->format('Y/m/d');
         $auth = Auth::id();
-        $post_user = $post->user;
-        $comments = Comment::where('post_id', $id)->latest()->get();
-        $tags = $post->tags->toArray();
-        return view('post.show', compact('post', 'date', 'auth', 'comments', 'tags', 'post_user'));
+        
+        return view('post.show', compact('post', 'date', 'auth'));
     }
 
     public function destroy($id)
