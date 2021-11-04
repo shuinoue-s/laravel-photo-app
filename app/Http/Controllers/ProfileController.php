@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use Storage;
 use App\Http\Requests\ProfileRequest;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Profile;
 use App\Models\User;
-use Illuminate\Support\Facades\Storage;
+use App\Common\CommonMethods;
 
 class ProfileController extends Controller
 {
@@ -15,25 +16,13 @@ class ProfileController extends Controller
         $this->middleware('auth');
     }
 
-    public function GetPresignedURL(string $s3_key)
-    {
-        $s3 = Storage::disk('s3');
-            $client = $s3->getDriver()->getAdapter()->getClient();
-            $command = $client->getCommand('GetObject', [
-                'Bucket' => env('AWS_BUCKET'),
-                'Key' => $s3_key
-            ]);
-            $request = $client->createPresignedRequest($command, "+10 minutes");
-            return (string) $request->getUri();
-    }
-
     public function profile()
     {
         $auth = Auth::user();
         $user_profile = Profile::where('user_id', $auth->id)->first();
         if ($user_profile) {
             if ($user_profile->profile_image) {
-                $user_profile['profile_image'] = $this->GetPresignedURL($user_profile['profile_image']);
+                $user_profile['profile_image'] = CommonMethods::GetPresignedURL($user_profile['profile_image']);
             }
         }
 
@@ -46,7 +35,7 @@ class ProfileController extends Controller
         $user_profile = Profile::where('user_id', $auth->id)->first();
         if ($user_profile) {
             if ($user_profile->profile_image) {
-                $user_profile['profile_image'] = $this->GetPresignedURL($user_profile['profile_image']);
+                $user_profile['profile_image'] = CommonMethods::GetPresignedURL($user_profile['profile_image']);
             }
         }
 

@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Auth;
 use App\Http\Requests\PasswordChangeRequest;
-use Illuminate\Support\Facades\Auth;
 
 class PasswordChangeController extends Controller
 {

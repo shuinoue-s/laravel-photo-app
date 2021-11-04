@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use Storage;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Tag;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use App\Common\CommonMethods;
 
 class PostController extends Controller
 {
@@ -19,18 +20,6 @@ class PostController extends Controller
     public function form()
     {
         return view('post.form');
-    }
-
-    public function GetPresignedURL(string $s3_key)
-    {
-        $s3 = Storage::disk('s3');
-        $client = $s3->getDriver()->getAdapter()->getClient();
-        $command = $client->getCommand('GetObject', [
-            'Bucket' => env('AWS_BUCKET'),
-            'Key' => $s3_key
-        ]);
-        $request = $client->createPresignedRequest($command, "+10 minutes");
-        return (string) $request->getUri();
     }
 
     public function upload(PostRequest $request)
@@ -72,11 +61,9 @@ class PostController extends Controller
     public function list()
     {
         $user_id = Auth::id();
-        $posts = Post::where('user_id', $user_id)
-            ->latest()
-            ->get();
+        $posts = Post::where('user_id', $user_id)->latest()->get();
         foreach ($posts as $post) {
-            $post['file_path'] = $this->GetPresignedURL($post['file_path']);
+            $post['file_path'] = CommonMethods::GetPresignedURL($post['file_path']);
         }
         $user_name = User::find($user_id);
 

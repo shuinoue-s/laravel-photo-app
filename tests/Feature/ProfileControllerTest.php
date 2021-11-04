@@ -15,10 +15,14 @@ class ProfileControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    private $user;
+
     public function setUp() :void
     {
         parent::setUp();
+
         User::factory()->create();
+        $this->user = User::first();
     }
 
     /**
@@ -28,10 +32,9 @@ class ProfileControllerTest extends TestCase
     public function create_プロフィール未作成でユーザー名を変更かつ画像と本文を入力し登録できる()
     {
 
-        $user = User::findOrFail(1);
-        $this->actingAs($user);
+        $this->actingAs($this->user);
         $file = UploadedFile::fake()->image('test.png');
-        $response = $this->post(route('mypage.create'), [
+        $response = $this->from(route('mypage.edit'))->post(route('mypage.create'), [
             'image' => $file,
             'body' => 'test',
             'name' => 'test_name'
@@ -45,7 +48,7 @@ class ProfileControllerTest extends TestCase
             'name' => 'test_name'
         ]);
 
-        $response->assertStatus(302);
+        $response->assertRedirect(route('mypage.profile'));
     }
 
     /**
@@ -55,10 +58,9 @@ class ProfileControllerTest extends TestCase
     public function create_プロフィール未作成でユーザー名を変更かつ画像のみを入力し登録できる()
     {
 
-        $user = User::findOrFail(2);
-        $this->actingAs($user);
+        $this->actingAs($this->user);
         $file = UploadedFile::fake()->image('test.png');
-        $response = $this->post(route('mypage.create'), [
+        $response = $this->from(route('mypage.edit'))->post(route('mypage.create'), [
             'image' => $file,
             'name' => 'test_name'
         ]);
@@ -70,7 +72,7 @@ class ProfileControllerTest extends TestCase
             'name' => 'test_name'
         ]);
 
-        $response->assertStatus(302);
+        $response->assertRedirect(route('mypage.profile'));
     }
 
     /**
@@ -80,9 +82,8 @@ class ProfileControllerTest extends TestCase
     public function create_プロフィール未作成でユーザー名を変更かつ本文のみを入力し登録できる()
     {
 
-        $user = User::findOrFail(3);
-        $this->actingAs($user);
-        $response = $this->post(route('mypage.create'), [
+        $this->actingAs($this->user);
+        $response = $this->from(route('mypage.edit'))->post(route('mypage.create'), [
             'body' => 'test',
             'name' => 'test_name'
         ]);
@@ -94,7 +95,7 @@ class ProfileControllerTest extends TestCase
             'name' => 'test_name'
         ]);
 
-        $response->assertStatus(302);
+        $response->assertRedirect(route('mypage.profile'));
     }
 
     /**
@@ -104,13 +105,12 @@ class ProfileControllerTest extends TestCase
     public function create_プロフィール未作成で画像と本文を入力し登録できる()
     {
 
-        $user = User::findOrFail(4);
-        $this->actingAs($user);
+        $this->actingAs($this->user);
         $file = UploadedFile::fake()->image('test.png');
-        $response = $this->post(route('mypage.create'), [
+        $response = $this->from(route('mypage.edit'))->post(route('mypage.create'), [
             'image' => $file,
             'body' => 'test',
-            'name' => $user->name
+            'name' => $this->user->name
         ]);
 
         $this->assertDatabaseHas('profiles', [
@@ -118,7 +118,7 @@ class ProfileControllerTest extends TestCase
             'profile_body' => 'test'
         ]);
 
-        $response->assertStatus(302);
+        $response->assertRedirect(route('mypage.profile'));
     }
 
     /**
@@ -127,12 +127,11 @@ class ProfileControllerTest extends TestCase
      */
     public function create_プロフィール未作成で画像のみを入力し登録できる()
     {
-        $user = User::findOrFail(5);
-        $this->actingAs($user);
+        $this->actingAs($this->user);
         $file = UploadedFile::fake()->image('test.png');
-        $respose = $this->post(route('mypage.create'), [
+        $response = $this->from(route('mypage.edit'))->post(route('mypage.create'), [
             'image' => $file,
-            'name' => $user->name
+            'name' => $this->user->name
         ]);
 
         $this->assertDatabaseHas('profiles', [
@@ -140,7 +139,7 @@ class ProfileControllerTest extends TestCase
             'profile_body' => ''
         ]);
 
-        $respose->assertStatus(302);
+        $response->assertRedirect(route('mypage.profile'));
     }
 
     /**
@@ -149,11 +148,10 @@ class ProfileControllerTest extends TestCase
      */
     public function create_プロフィール未作成で本文のみを入力し登録できる()
     {
-        $user = User::findOrFail(6);
-        $this->actingAs($user);
-        $respose = $this->post(route('mypage.create'), [
+        $this->actingAs($this->user);
+        $response = $this->from(route('mypage.edit'))->post(route('mypage.create'), [
             'body' => 'test',
-            'name' => $user->name
+            'name' => $this->user->name
         ]);
 
         $this->assertDatabaseHas('profiles', [
@@ -161,7 +159,7 @@ class ProfileControllerTest extends TestCase
             'profile_body' => 'test'
         ]);
 
-        $respose->assertStatus(302);
+        $response->assertRedirect(route('mypage.profile'));
     }
 
     /**
@@ -170,13 +168,12 @@ class ProfileControllerTest extends TestCase
      */
     public function create_プロフィール未作成で何も入力しない場合リダイレクト()
     {
-        $user = User::findOrFail(7);
-        $this->actingAs($user);
-        $respose = $this->post(route('mypage.create'), [
-            'name' => $user->name
+        $this->actingAs($this->user);
+        $response = $this->from(route('mypage.edit'))->post(route('mypage.create'), [
+            'name' => $this->user->name
         ]);
 
-        $respose->assertStatus(302);
+        $response->assertRedirect(route('mypage.profile'));
     }
 
     /**
@@ -185,16 +182,15 @@ class ProfileControllerTest extends TestCase
      */
     public function create_プロフィール作成済でユーザー名を変更かつ画像と本文を入力し更新できる()
     {
-        $user = User::findOrFail(8);
-        $this->actingAs($user);
+        $this->actingAs($this->user);
         $default_file = UploadedFile::fake()->image('default.png')->hashName();
         $file = UploadedFile::fake()->image('test.png');
         Profile::create([
-            'user_id' => $user->id,
+            'user_id' => $this->user->id,
             'profile_image' => $default_file,
             'profile_body' => 'default_test'
         ]);
-        $response = $this->post(route('mypage.create'), [
+        $response = $this->from(route('mypage.edit'))->post(route('mypage.create'), [
             'image' => $file,
             'body' => 'test',
             'name' => 'test_name'
@@ -208,7 +204,7 @@ class ProfileControllerTest extends TestCase
             'name' => 'test_name'
         ]);
 
-        $response->assertStatus(302);
+        $response->assertRedirect(route('mypage.profile'));
     }
 
     /**
@@ -217,16 +213,15 @@ class ProfileControllerTest extends TestCase
      */
     public function create_プロフィール作成済でユーザー名を変更かつ画像のみを入力し更新できる()
     {
-        $user = User::findOrFail(9);
-        $this->actingAs($user);
+        $this->actingAs($this->user);
         $default_file = UploadedFile::fake()->image('default.png')->hashName();
         $file = UploadedFile::fake()->image('test.png');
         Profile::create([
-            'user_id' => $user->id,
+            'user_id' => $this->user->id,
             'profile_image' => $default_file,
             'profile_body' => 'default_test'
         ]);
-        $response = $this->post(route('mypage.create'), [
+        $response = $this->from(route('mypage.edit'))->post(route('mypage.create'), [
             'image' => $file,
             'name' => 'test_name'
         ]);
@@ -238,7 +233,7 @@ class ProfileControllerTest extends TestCase
             'name' => 'test_name'
         ]);
 
-        $response->assertStatus(302);
+        $response->assertRedirect(route('mypage.profile'));
     }
 
     /**
@@ -246,16 +241,15 @@ class ProfileControllerTest extends TestCase
      * @group profile_test
      */
     public function create_プロフィール作成済でユーザー名を変更かつ本文のみを入力し更新できる()
-    {
-        $user = User::findOrFail(10);
-        $this->actingAs($user);
+    {;
+        $this->actingAs($this->user);
         $default_file = UploadedFile::fake()->image('default.png')->hashName();
         Profile::create([
-            'user_id' => $user->id,
+            'user_id' => $this->user->id,
             'profile_image' => $default_file,
             'profile_body' => 'default_test'
         ]);
-        $response = $this->post(route('mypage.create'), [
+        $response = $this->from(route('mypage.edit'))->post(route('mypage.create'), [
             'body' => 'test',
             'name' => 'test_name'
         ]);
@@ -267,7 +261,7 @@ class ProfileControllerTest extends TestCase
             'name' => 'test_name'
         ]);
 
-        $response->assertStatus(302);
+        $response->assertRedirect(route('mypage.profile'));
     }
 
     /**
@@ -275,20 +269,19 @@ class ProfileControllerTest extends TestCase
      * @group profile_test
      */
     public function create_プロフィール作成済で画像と本文を入力し更新できる()
-    {
-        $user = User::findOrFail(11);
-        $this->actingAs($user);
+    {;
+        $this->actingAs($this->user);
         $default_file = UploadedFile::fake()->image('default.png')->hashName();
         $file = UploadedFile::fake()->image('test.png');
         Profile::create([
-            'user_id' => $user->id,
+            'user_id' => $this->user->id,
             'profile_image' => $default_file,
             'profile_body' => 'default_test'
         ]);
-        $response = $this->post(route('mypage.create'), [
+        $response = $this->from(route('mypage.edit'))->post(route('mypage.create'), [
             'image' => $file,
             'body' => 'test',
-            'name' => $user->name
+            'name' => $this->user->name
         ]);
 
         $this->assertDatabaseHas('profiles', [
@@ -296,7 +289,7 @@ class ProfileControllerTest extends TestCase
             'profile_body' => 'test'
         ]);
 
-        $response->assertStatus(302);
+        $response->assertRedirect(route('mypage.profile'));
     }
 
     /**
@@ -304,19 +297,18 @@ class ProfileControllerTest extends TestCase
      * @group profile_test
      */
     public function create_プロフィール作成済で画像のみを入力し更新できる()
-    {
-        $user = User::findOrFail(12);
-        $this->actingAs($user);
+    {;
+        $this->actingAs($this->user);
         $default_file = UploadedFile::fake()->image('default.png')->hashName();
         $file = UploadedFile::fake()->image('test.png');
         Profile::create([
-            'user_id' => $user->id,
+            'user_id' => $this->user->id,
             'profile_image' => $default_file,
             'profile_body' => 'default_test'
         ]);
-        $response = $this->post(route('mypage.create'), [
+        $response = $this->from(route('mypage.edit'))->post(route('mypage.create'), [
             'image' => $file,
-            'name' => $user->name
+            'name' => $this->user->name
         ]);
 
         $this->assertDatabaseHas('profiles', [
@@ -324,7 +316,7 @@ class ProfileControllerTest extends TestCase
             'profile_body' => ''
         ]);
 
-        $response->assertStatus(302);
+        $response->assertRedirect(route('mypage.profile'));
     }
 
     /**
@@ -332,19 +324,18 @@ class ProfileControllerTest extends TestCase
      * @group profile_test
      */
     public function create_プロフィール作成済で本文のみを入力し更新できる()
-    {
-        $user = User::findOrFail(13);
-        $this->actingAs($user);
+    {;
+        $this->actingAs($this->user);
         $default_file = UploadedFile::fake()->image('default.png')->hashName();
         $file = UploadedFile::fake()->image('test.png');
         Profile::create([
-            'user_id' => $user->id,
+            'user_id' => $this->user->id,
             'profile_image' => $default_file,
             'profile_body' => 'default_test'
         ]);
-        $response = $this->post(route('mypage.create'), [
+        $response = $this->from(route('mypage.edit'))->post(route('mypage.create'), [
             'body' => 'test',
-            'name' => $user->name
+            'name' => $this->user->name
         ]);
 
         $this->assertDatabaseHas('profiles', [
@@ -352,7 +343,7 @@ class ProfileControllerTest extends TestCase
             'profile_body' => 'test'
         ]);
 
-        $response->assertStatus(302);
+        $response->assertRedirect(route('mypage.profile'));
     }
 
     /**
@@ -360,20 +351,33 @@ class ProfileControllerTest extends TestCase
      * @group profile_test
      */
     public function create_プロフィール作成済で何も入力しない場合リダイレクト()
-    {
-        $user = User::findOrFail(14);
-        $this->actingAs($user);
+    {;
+        $this->actingAs($this->user);
         $default_file = UploadedFile::fake()->image('default.png')->hashName();
         Profile::create([
-            'user_id' => $user->id,
+            'user_id' => $this->user->id,
             'profile_image' => $default_file,
             'profile_body' => 'default_test'
         ]);
-        $response = $this->post(route('mypage.create'), [
-            'name' => $user->name
+        $response = $this->from(route('mypage.edit'))->post(route('mypage.create'), [
+            'name' => $this->user->name
         ]);
 
-        $response->assertStatus(302);
+        $response->assertRedirect(route('mypage.profile'));
     }
 
+    /**
+     * @test
+     * @group profile_test
+     */
+    public function destroy_アカウントを削除できる()
+    {
+        $this->actingAs($this->user);
+
+        $response = $this->from(route('mypage.profile'))
+            ->delete(route('mypage.destroy', ['id' => $this->user->id]));
+
+        $this->assertEquals(0, User::count());
+        $response->assertRedirect(route('mypage.profile'));
+    }
 }

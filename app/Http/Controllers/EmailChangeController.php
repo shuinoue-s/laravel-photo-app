@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use Auth;
 use Illuminate\Support\Str;
 use App\Models\EmailReset;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\EmailChangeRequest;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 
 class EmailChangeController extends Controller
 {

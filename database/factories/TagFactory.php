@@ -1,19 +1,18 @@
 <?php
 
 namespace Database\Factories;
-use Illuminate\Http\UploadedFile;
 
-use App\Models\Profile;
+use App\Models\Tag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ProfileFactory extends Factory
+class TagFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Profile::class;
+    protected $model = Tag::class;
 
     /**
      * Define the model's default state.
@@ -22,12 +21,8 @@ class ProfileFactory extends Factory
      */
     public function definition()
     {
-        $file = UploadedFile::fake()->image('test.png');
-
         return [
-            'user_id' => $this->faker->numberBetween(10),
-            'profile_image' => $file->hashName(),
-            'profile_body' => 'profile_test'
+            'tag_name' => $this->faker->word()
         ];
     }
 }

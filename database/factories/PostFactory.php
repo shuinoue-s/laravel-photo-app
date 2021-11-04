@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Http\UploadedFile;
 
 class PostFactory extends Factory
 {
@@ -21,12 +22,14 @@ class PostFactory extends Factory
      */
     public function definition()
     {
+        $file = UploadedFile::fake()->image('test.png');
+
         return [
-            'user_id' => $this->faker->numberBetween($min = 1, $max = 10),
-            'file_name' => asset('images/dummy-image/image' . rand(1, 14) . '.jpeg'),
-            'file_path' => $this->faker->sha256(),
-            'title' => $this->faker->text($maxNbChars = 20),
-            'description' => $this->faker->text($maxNbChars = 200)
+            'user_id' => $this->faker->numberBetween(10),
+            'file_name' => $file->getClientOriginalName(),
+            'file_path' => $file->hashName(),
+            'title' => 'test_title',
+            'description' => 'test_description'
         ];
     }
 }
