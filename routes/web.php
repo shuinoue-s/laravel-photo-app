@@ -10,6 +10,7 @@ use App\Http\Controllers\EmailChangeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\GuestLoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -70,6 +71,8 @@ Route::patch('/mypage/emailchange', [EmailChangeController::class, 'emailChange'
 Route::get('/mypage/reset/{token}', [EmailChangeController::class, 'emailReset'])->name('mypage.emailreset');
 
 Route::get('/logout', [UserController::class, 'getLogout'])->name('user.logout');
+
+Route::get('/guest_login', [GuestLoginController::class, 'guestLogin'])->name('guest_login');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

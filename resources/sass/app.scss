@@ -43,6 +43,12 @@
     }
 }
 
+.toppage-btn.guest-btn {
+    color: rgb(215, 255, 215);
+    background: rgb(30, 190, 30);
+    padding: 0.7rem 2rem;
+}
+
 .toppage-btn + .toppage-btn {
     margin-left: 2rem;
 }

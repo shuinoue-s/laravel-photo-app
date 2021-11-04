@@ -6,6 +6,18 @@
         @endguest
     </div>
 
+    @if (false)
+        @guest
+            <div class="btn-container">
+                <form action="{{ route('guest_login') }}">
+                    <input type="hidden" name="email" value="guest@example.com">
+                    <input type="hidden" name="password" value="guest-login">
+                    <button type="submit" class="toppage-btn guest-btn">ゲストログイン</button>
+                </form>
+            </div>
+        @endguest
+    @endif
+
     <div class="flex-container">
         <div class="flex-column flex-column1">
             @foreach ($posts as $post)
