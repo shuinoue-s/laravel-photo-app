@@ -1,65 +1,266 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# はじめに
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+転職を目的としたWebアプリを作成しました。バックエンドにはLaravel, Vue.js, jQuery等を、インフラにはDocker, AWS等を使用しています。
 
-## About Laravel
+<br>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+[・はじめに](#はじめに)  
+[・アプリ概要](#アプリ概要)  
+[・使用技術](#使用技術)  
+[・インフラ構成図](#インフラ構成図)  
+[・データベース設計](#データベース設計)  
+[・機能一覧](#機能一覧)  
+[・意識したこと・苦労したこと](#意識したこと・苦労したこと)  
+[・今後の課題・やりたいこと](#今後の課題・やりたいこと)  
+[・おわりに](#おわりに)  
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<br>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+# アプリ概要
 
-## Learning Laravel
+「Phototte」という写真投稿アプリを作成しました。
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+<br>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 作成背景
+最近のSNSは機能が多くて使いづらい、もっとシンプルで簡単に写真を投稿できるアプリを使いたい！といった方へ、「シンプルで使いやすい」をコンセプトに作成しました。
 
-## Laravel Sponsors
+<br>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## URL
+<https://photo-totte.com/>
 
-### Premium Partners
+<br>
+<br>
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+トップページ
+<img width="1440" alt="phototte-index" src="https://user-images.githubusercontent.com/80799067/140674334-81a1d312-50ee-42cb-9ed2-9e1e8863deaa.png">
 
-## Contributing
+<br>
+<br>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+投稿ページ
+<img width="1440" alt="phototte-post" src="https://user-images.githubusercontent.com/80799067/140674417-d53955c3-6a65-4e49-a6dc-96b7176ed209.png">
 
-## Code of Conduct
+<br>
+<br>
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+投稿詳細ページ
+<img width="1440" alt="phototte-show" src="https://user-images.githubusercontent.com/80799067/140674474-25d85e5f-7a4b-4025-aa98-01aca40d5171.png">
 
-## Security Vulnerabilities
+<br>
+<br>
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+マイページ
+<img width="1440" alt="phototte-mypage" src="https://user-images.githubusercontent.com/80799067/140674495-3591aac8-de60-4fe0-a40a-b07c46b739d1.png">
 
-## License
+<br>
+<br>
+<br>
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# photo-app
+# 使用技術
+
+- フロントエンド
+
+    - HTML
+    - CSS
+    - Sass
+    - TailwindCSS
+    - Vue.js 2.6.12
+    - jQuery 3.6
+    
+<br>
+
+- バックエンド
+
+    - PHP 7.4.24
+    - Laravel 8.65.0
+    - PHPUnit 9.5.10
+
+<br>
+
+- インフラ
+
+    - nginx 1.20.0
+    - MySQL 8.0.23
+    - Docker 20.10.8
+    - Docker Compose 2.0.0
+    - AWS (EC2, RDS, Route53, S3, VPC...)
+
+<br>
+<br>
+
+# インフラ構成図
+
+<img width="1223" alt="phototte" src="https://user-images.githubusercontent.com/80799067/140838907-44426be3-0389-4a93-b6d8-e22e40d1e1da.png">
+
+<br>
+
+開発環境にはDocker, Docker Composeを使用。  
+3つのコンテナを作りwebサーバーにnginx、アプリケーションサーバーにPHP, Laravel、DBサーバーにMySQLという構成で開発を進めました。
+
+本番環境へのデプロイではAWSを使用。  
+デプロイ後、独自ドメインを取得し常時SSL化を行いました。SSL証明書の発行はACMではなく、Certbotを使用して発行しました。また画像のアップロード先としてS3バケットを作成し使用しています。
+
+<br>
+<br>
+
+# データベース設計
+
+## ER図
+<img width="795" alt="databaseER" src="https://user-images.githubusercontent.com/80799067/140838851-1edc11d5-cb3a-4094-8d03-e6eb98ba98cf.png">
+
+<br>
+<br>
+
+## テーブル構成
+| テーブル名 | 説明 |
+| --- | --- |
+| Users | ユーザー情報 |
+| Profiles | ユーザープロフィール情報 |
+| Posts | 投稿情報 |
+| Tags | タグ情報 |
+| Post_tag | postsとtagsの中間テーブル |
+| Comments | コメント情報 |
+| Likes | いいね情報 |
+
+<br>
+<br>
+
+# 機能一覧
+
+## ユーザー機能
+- 新規ユーザー登録・編集機能
+- ログイン・ログアウト機能
+- ゲストログイン機能
+
+<br>
+
+## プロフィール機能
+- プロフィール登録・編集機能
+- 画像プレビュー機能(jQuery)
+- 画像アップロード機能(S3)
+- プロフィール表示機能
+
+<br>
+
+## 投稿機能
+- 新規投稿機能
+- 画像プレビュー機能(jQuery)
+- 画像アップロード機能(S3)
+- タグ付け機能
+- 投稿一覧表示機能
+- 投稿詳細表示機能
+- 遅延ローディング機能(Lazy Load)
+
+<br>
+
+## コメント機能
+- 新規投稿機能
+- 一覧表示機能
+- 削除機能
+
+<br>
+
+## タグ検索機能
+- キーワード検索機能
+- 一覧表示機能
+
+<br>
+
+## いいね機能
+- いいね・いいね取り消し機能(Vue.js)
+- いいね数表示機能
+
+<br>
+
+## その他の機能
+- テスト機能
+- ハンバーガーメニュー(JavaScript)
+- レスポンシブデザイン
+
+<br>
+<br>
+
+# 意識したこと・苦労したこと
+
+アプリケーションを開発する中で全体を通して最も意識したことが2つあります。  
+1つは「まずは自分で考える」こと。もう1つは「コピペをしない」ことです。まずは自分でどうすれば課題を解決できるかを考えてみる。どうしても自力で解決できそうにない時には調べる。そして調べたものをそのままコピペするのではなく、コードの中身を理解しながら書く。この2つを特に意識しながら開発を進めました。
+
+<br>
+
+## フロントエンド
+- UI/UXの向上
+
+- レスポンシブデザイン
+
+- 表示速度
+
+        写真投稿アプリという事もあり表示速度は意識しました。解決のためにLazy Loadを使って遅延ローディング機能を実装しています。
+
+![phototte-lazyload2](https://user-images.githubusercontent.com/80799067/140670843-485f9d4c-48f0-4417-a175-ef39b6cf333f.gif)
+
+- 投稿画像の一覧表示
+
+        写真のアスペクト比を保って一覧表示したかったのですが、最初はどう表示させればいいか分からず苦労しました。試行錯誤しながら実装したおかげでSCCの理解も深まりました。
+
+<br>
+
+## バックエンド
+- N+1 問題
+
+        フロントエンドの方でも書いていますが、表示速度をできるだけ早くしたいと考えていたため、with関数を使ってクエリの発行回数を減らすということを意識しました。
+
+- リレーション
+
+      公式ドキュメント等を見ながらbelongsTo()だったりを書いたは良いものの、最初のうちは実際それをどう使えば良いのかが分からず苦労しました。
+        
+- DRY原則
+
+        複数のコントローラーで同じ処理を書いている箇所を共通関数化する等、コードの見通しをできるだけ良くするよう心がけました。
+
+<br>
+
+## テスト
+- そもそも何を書けばいいか分からない
+
+        調べても中々情報が見つからず、しばらくの間「そもそも何を書けば良いか分からない」の状態から抜け出せずに苦労しました。
+
+<br>
+
+## デプロイ
+
+- nginx等の設定ファイルの書き方
+
+        ファイルの書き方が間違っていてサーバーが動かない等、エラーに苦しみました。
+
+- S3への画像アップロード先の変更
+
+(デプロイに関しては全てにおいて苦労しました。。)
+
+<br>
+<br>
+
+# 今後の課題・やりたいこと
+
+- デザイン面がまだまだなので改善が必要。
+
+- Vue.js, Ajax辺りの理解がまだまだだと実装しながら感じた。UI/UXの向上にも必須の技術だと思うので、今後はより理解を深めるために学習していきたい。
+
+- Gitの理解を深める。
+
+- テストコードの改善、充実。
+
+- CircleCI等を使っての自動化。
+
+<br>
+<br>
+
+# おわりに
+
+今回のアプリケーション作成を通して、課題の解決力や考える力など座学だけでは学べない部分も、作成前より確実に成長できたと感じています。またアウトプットの大切さも実感しました。  
+まだまだ課題ばかりですが、今できることを1つ1つ地道にやっていこうと思っています。
+
+<br>
+<br>
+
