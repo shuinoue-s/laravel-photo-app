@@ -28,7 +28,7 @@
 <br>
 
 ## URL
-<https://photo-totte.com/>
+<a href="https://photo-totte.com/" target="_blank">https://photo-totte.com/</a>
 
 <br>
 <br>
