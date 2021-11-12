@@ -1,11 +1,11 @@
 <x-layout>
     <h2 class="page-title">プロフィールの編集</h2>
 
-    @if (!empty($error_message))
-        <div class="">
+    {{-- @if (!empty($error_message)) --}}
+        <div class="image-alert alert alert-danger py-1">
             {{ $error_message }}
         </div>
-    @endif
+    {{-- @endif --}}
 
     <form method="post" action="{{ route('mypage.create', $auth->id) }}" enctype="multipart/form-data">
         @csrf
