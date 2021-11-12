@@ -8,7 +8,6 @@ use App\Http\Requests\ProfileRequest;
 use App\Models\Profile;
 use App\Models\User;
 use App\Common\CommonMethods;
-use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class ProfileController extends Controller
 {
@@ -115,8 +114,8 @@ class ProfileController extends Controller
             if ($user_id !== $guest_user_id) {
                 User::find($id)->delete();
             } else {
-                $error_message = 'ゲストユーザーでは削除できません';
-                return redirect()->route('mypage.edit', ['error_message' => $error_message]);
+                $message = 'ゲストユーザーでは削除できません';
+                return redirect()->route('mypage.edit')->with('error_message', $message);
             }
         }
         return redirect()->route('mypage.profile');
