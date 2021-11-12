@@ -115,8 +115,8 @@ class ProfileController extends Controller
             if ($user_id !== $guest_user_id) {
                 User::find($id)->delete();
             } else {
-                $message = 'ゲストユーザーでは削除できません';
-                return redirect()->route('mypage.edit', compact('message'));
+                $error_message = 'ゲストユーザーでは削除できません';
+                return redirect()->route('mypage.edit', compact('error_message'));
             }
         }
         return redirect()->route('mypage.profile');
