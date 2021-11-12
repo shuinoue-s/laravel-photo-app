@@ -1,9 +1,9 @@
 <x-layout>
     <h2 class="page-title">プロフィールの編集</h2>
 
-    @if (!empty($error_message))
+    @if (!empty(session('error_message')))
         <div class="image-alert alert alert-danger py-1">
-            {{ $error_message }}
+            {{ session('error_message') }}
         </div>
     @endif
 
