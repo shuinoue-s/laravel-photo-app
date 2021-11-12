@@ -116,7 +116,7 @@ class ProfileController extends Controller
                 User::find($id)->delete();
             } else {
                 $message = 'ゲストユーザーでは削除できません';
-                return redirect()->route('mypage.profile', compact('message'));
+                return redirect()->route('mypage.edit', compact('message'));
             }
         }
         return redirect()->route('mypage.profile');
