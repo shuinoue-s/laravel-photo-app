@@ -2,7 +2,7 @@
     <h2 class="page-title">プロフィールの編集</h2>
 
     @if (!empty(session('error_message')))
-        <div class="image-alert alert alert-danger py-1">
+        <div class="image-alert alert alert-danger py-1 text-center">
             {{ session('error_message') }}
         </div>
     @endif
