@@ -2,7 +2,7 @@
     <h2 class="page-title">プロフィールの編集</h2>
 
     @if (!empty($error_message))
-        <div class="image-alert alert alert-danger py-1">
+        <div class="">
             {{ $error_message }}
         </div>
     @endif
