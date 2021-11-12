@@ -1,5 +1,12 @@
 <x-layout>
     <h2 class="page-title">プロフィールの編集</h2>
+
+    @if (!empty($message))
+        <div class="image-alert alert alert-danger py-1">
+            {{ $message }}
+        </div>
+    @endif
+
     <form method="post" action="{{ route('mypage.create', $auth->id) }}" enctype="multipart/form-data">
         @csrf
         <div class="profile-container">
