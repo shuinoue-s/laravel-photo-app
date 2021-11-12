@@ -6,7 +6,7 @@
         @endguest
     </div>
 
-    @if (false)
+    @if (true)
         @guest
             <div class="btn-container">
                 <form action="{{ route('guest_login') }}">
