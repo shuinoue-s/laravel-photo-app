@@ -93,6 +93,11 @@ class ProfileController extends Controller
                 $user_profile->profile_body = $request->body;
                 $user_profile->save();
             }
+
+            if (!$upload_icon && !$request->body) {
+                $user_profile->profile_body = '';
+                $user_profile->save();
+            }
         }
 
         if(Auth::check()) {
