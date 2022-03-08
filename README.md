@@ -29,6 +29,7 @@
 
 ## URL
 <a href="https://photo-totte.com/" target="_blank">https://photo-totte.com/</a>
+(現在サーバーを停止しております)
 
 <br>
 <br>
